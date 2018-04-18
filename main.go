@@ -36,6 +36,10 @@ func main() {
 	if err != nil {
 		return
 	}
+	if len(routes) < 1 {
+		printError(errors.New("no routes defined in settings"))
+		return
+	}
 
 	proxy := goproxy.NewProxyHttpServer()
 	proxy.Verbose = verbose
@@ -123,5 +127,10 @@ A redirection route has the following format:
 Multiple whitespaces/tabs are permitted as a separator.
 
 This program will redirect the first (source) ip&port to the second (destination) ip&port.
-You can use a wildcard '*' to match the ip, port, or both, for the source.`)
+You can use a wildcard '*' to match the ip, port, or both, for the source.
+
+Sample settings.txt:
+1.2.3.4:80  127.0.0.1:8080
+*:1555      127.0.0.1:6000
+*:*         127.0.0.1:80`)
 }
